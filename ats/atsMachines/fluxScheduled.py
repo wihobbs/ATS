@@ -40,6 +40,8 @@ class FluxScheduled(lcMachines.LCMachineCore):
         ret = "flux mini run".split()
         np = test.options.get('np', 1)
         nn = test.options.get('nn', 1)
+        max_time = test.options.get('timelimit', '29m')
+        
         if np > self.coresPerNode:
             nn = ceil(np / self.coresPerNode)
         # import pdb 
