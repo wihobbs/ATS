@@ -1,26 +1,14 @@
-[![Documentation Status](https://readthedocs.org/projects/ats/badge/?version=main)](https://ats.readthedocs.io/en/main/?badge=main)
-
-# ATS
-
-## Description
-
-ATS is an Automated Test System. It is used to implement regression testing
-across a variety of HPC platforms. 
+# ATS-Flux Specific Instructions
 
 ## Getting Started
 
-ATS usage and expectations vary among its user base. This also applies to how
-ATS is installed. Below are a few variations that users may find helpful.
+Running ATS under Flux requires a Flux installation in `/usr/bin/flux` >=0.38.0. 
+All TOSS4 and TOSS3 systems at LLNL should provide this.
 
-For more information, please check our [documentation](https://ats.readthedocs.io).
-
-#### "Global" install
-
-A "global" install really means a widely available Python executable with ATS
-modules discoverable in its python path. Useful for multiple different projects
-in a shared environment.
-
-Example installation:
+Flux is controlled in ATS under the `atsflux` binary. In order to pick up this binary
+(defined in ats/bin/atsflux.py and controlled by setup.cfg) you will need to reinstall
+ATS. It is recommended that you do this in a virtual environment (instructions for LC 
+systems provided below):
 
 ```
 # Load a python 3.8 module, or otherwise put python 3.8 in your path
@@ -30,69 +18,29 @@ module load python/3.8.2
 python3 -m virtualenv --system-site-packages --python=python3.8 <NEW_ENV_PATH>
 
 # Clone ATS
-git clone git@github.com:LLNL/ATS.git <CLONE_PATH>
+git clone git@github.com:wihobbs/ATS.git
+
+# Get the flux branch and switch to that branch
+git fetch origin flux
+git checkout flux
 
 # pip install cloned ATS into fresh shared Python 3.8 (or higher) executable.
-<NEW_ENV_PATH>/bin/python -m pip install <CLONE_PATH>/
+<NEW_ENV_PATH>/bin/python3 -m pip install <CLONE_PATH>/
 ```
 
-#### Project install
+## Flux features for ATS users
 
-A project installation could apply to projects that include ATS in their
-source code directly.
-
-```
-# Load a python 3.8 module, or otherwise put python 3.8 in your path
-module load python/3.8.2
-
-# Clone ATS
-git clone git@github.com:LLNL/ATS.git <CLONE_PATH>
-
-# pip install cloned ATS into <DESTINATION_PATH>
-python3 -m pip install <CLONE_PATH>/ --target=<DESTINATION_PATH>
-```
-
-#### Local/user install
-
-Installation specific to the user could save an individual from running
-multiple project installs. The user just needs to remember to update their ATS
-when needed.
+`atsflux` has several options for user-defined parameters when running an ATS test
+suite under Flux.
 
 ```
-# Load a python 3.8 module, or otherwise put python 3.8 in your path
-module load python/3.8.2
-
-# Clone ATS
-git clone git@github.com:LLNL/ATS.git <CLONE_PATH>
-
-# pip install cloned ATS into <DESTINATION_PATH>
-python3 -m pip install --user <CLONE_PATH>/
-```
-
-#### Using ATS without installing
-
-Another option is to tell Python where ATS is without any installation.
-Append the path to ats/__init__.py to $PYTHONPATH as seen below:
-
-```
-# Clone ATS
-git clone git@github.com:LLNL/ATS.git <CLONE_PATH>
-
-# bash and zsh users
-export PYTHONPATH=$PYTHONPATH:<CLONE_PATH>/ats
-
-# (t)csh users. Note that the colon is commented out
-setenv PYTHONPATH $PYTHONPATH\:<CLONE_PATH>/ats
-```
-
-## Getting Involved
-
-Contact the ATS project lead dawson6@llnl.gov
-
-## Contributing 
-
-Refer to file [Contributing](CONTRIBUTING.md)
-
+        --nodes= 
+          Specify a number of nodes to use, will default to use 3.
+        --bank=
+          Specify a project bank to charge, will default to use whatever your default bank is.
+        --partition=
+          Specify either the debug or batch partition, will default to use debug.
+ ```
 
 ## Release
 
