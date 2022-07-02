@@ -27,6 +27,7 @@ git checkout flux
 # pip install cloned ATS into fresh shared Python 3.8 (or higher) executable.
 <NEW_ENV_PATH>/bin/python3 -m pip install <CLONE_PATH>/
 ```
+For the pip install, you can add the `-e` flag, which will allow you to modify the repo and pip automatically picks up the changes.
 
 ## Flux features for ATS users
 
@@ -41,6 +42,14 @@ suite under Flux.
         --partition=
           Specify either the debug or batch partition, will default to use debug.
  ```
+ 
+ To run on an LC cluster, generate an `test.ats` file and pass it to `atsflux`. For example:
+
+```
+(my_ats_env) (base) [hobbs17@ruby966:Kripke]$ atsflux --bank=cbronze test.ats 
+INFO: atsflux will use bank cbronze
+Executing: salloc --nodes=3 --partition=pdebug --account=cbronze --time=60 srun -N3 -n3 --pty /usr/bin/flux start -o,-S,log-filename=out /g/g20/hobbs17/my_ats_env/bin/ats test.ats
+```
 
 ## Release
 
