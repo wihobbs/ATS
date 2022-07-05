@@ -18,6 +18,7 @@ module load python/3.8.2
 python3 -m virtualenv --system-site-packages --python=python3.8 <NEW_ENV_PATH>
 
 # I named my environment "my_ats_env" in my ~/ directory.
+source ~/my_ats_env/bin/activate 
 
 # Clone ATS
 git clone git@github.com:wihobbs/ATS.git
@@ -27,7 +28,7 @@ git fetch origin flux
 git checkout flux
 
 # pip install cloned ATS into fresh shared Python 3.8 (or higher) executable.
-<NEW_ENV_PATH>/bin/python3 -m pip install <CLONE_PATH>/
+python3 -m pip install <CLONE_PATH>/
 ```
 For the pip install, you can add the `-e` flag, which will allow you to modify the repo and pip automatically picks up the changes.
 
