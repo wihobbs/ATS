@@ -41,7 +41,7 @@ suite under Flux.
         --nodes= 
           Specify a number of nodes to use, will default to use 3.
         --bank=
-          Specify a project bank to charge, will default to use whatever your default bank is.
+          Specify a project bank to charge, will default to use guests.
         --partition=
           Specify either the debug or batch partition, will default to use debug.
  ```
