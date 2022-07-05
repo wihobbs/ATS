@@ -17,6 +17,8 @@ module load python/3.8.2
 # Create a fresh Python 3.8 (or higher) executable to be shared.
 python3 -m virtualenv --system-site-packages --python=python3.8 <NEW_ENV_PATH>
 
+# I named my environment "my_ats_env" in my ~/ directory.
+
 # Clone ATS
 git clone git@github.com:wihobbs/ATS.git
 
